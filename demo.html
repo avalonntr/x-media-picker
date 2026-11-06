@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>X Media Picker — 本地试验页</title>
+    <style>
+      :root { color-scheme: dark; }
+      body { margin: 0; padding: 24px; background: #0b1016; color: #e5e7eb;
+             font: 14px/1.6 -apple-system, "Segoe UI", system-ui, sans-serif; }
+      h1 { font-size: 18px; margin: 0 0 4px; }
+      p.sub { color: #9ca3af; margin: 0 0 20px; font-size: 12.5px; }
+      .row { display: flex; gap: 16px; flex-wrap: wrap; }
+      article { width: 300px; border: 1px solid #1f2937; border-radius: 12px; overflow: hidden; background: #111827; }
+      article img { display: block; width: 100%; height: 200px; object-fit: cover; background: #1f2937; }
+      article .meta { padding: 10px 12px; font-size: 12px; color: #9ca3af; }
+      article a { color: #93c5fd; }
+      video { display: block; width: 100%; height: 200px; background: #000; }
+      #log { margin-top: 24px; padding: 12px; border-radius: 10px; background: #111827;
+             border: 1px solid #1f2937; font-family: ui-monospace, Consolas, monospace; font-size: 11.5px;
+             color: #9ca3af; min-height: 80px; white-space: pre-wrap; }
+      code { color: #93c5fd; }
+    </style>
+  </head>
+  <body>
+    <h1>X Media Picker 本地试验页</h1>
+    <p class="sub">
+      按住 <code>Alt</code> 点下面的图片 / 视频区 / 链接 → 加入或移出下载列表（右下角有提示）。<br />
+      不按 Alt 正常点 → 只在下方面板记一条日志，页面行为不变。
+    </p>
+
+    <div class="row">
+      <article id="post-photo">
+        <a href="https://x.com/NASA/status/2118676151950610843">
+          <img src="https://pbs.twimg.com/media/HWb2EAYXQAAl3PF?format=jpg&name=small" alt="photo" />
+        </a>
+        <div class="meta">真图片（pbs）· Alt 点它 → 应该入列 <code>?format=jpg&amp;name=orig</code></div>
+      </article>
+
+      <article id="post-video">
+        <img src="https://pbs.twimg.com/ext_tw_video_thumb/1732820284301058052/pu/img/A-6jgWgxmMJ43_YO.jpg" alt="poster" />
+        <div class="meta">视频封面（thumb）· Alt 点它 → 不该下封面，应回落到<a href="https://x.com/SpaceX/status/1732824684683784516">帖子链接</a></div>
+      </article>
+
+      <article id="post-blob">
+        <video src="blob:https://example.invalid/fake" poster="https://pbs.twimg.com/ext_tw_video_thumb/1732820284301058052/pu/img/A-6jgWgxmMJ43_YO.jpg"></video>
+        <div class="meta">blob 视频（X 的真实情况）· Alt 点它 → 回落到<a href="https://x.com/SpaceX/status/1732824684683784516">帖子链接</a></div>
+      </article>
+
+      <article id="post-direct">
+        <a href="https://video.twimg.com/ext_tw_video/1732820284301058052/pu/vid/avc1/1920x1080/K2NITCly19drRgED.mp4?tag=14">
+          <img src="https://pbs.twimg.com/ext_tw_video_thumb/1732820284301058052/pu/img/A-6jgWgxmMJ43_YO.jpg" alt="direct mp4 link" />
+        </a>
+        <div class="meta">直链 mp4 的 &lt;a&gt; · Alt 点它 → 应该入列 mp4 直链</div>
+      </article>
+    </div>
+
+    <div id="log">等待点击…</div>
+
+    <script>
+      const log = document.getElementById('log');
+      let n = 0;
+      document.addEventListener('click', (event) => {
+        n += 1;
+        const target = event.target;
+        const line = `#${n} ${target.tagName.toLowerCase()} alt=${event.altKey} ` +
+          `defaultPrevented=${event.defaultPrevented} → ${target.currentSrc || target.src || target.href || '(no src)'}`;
+        log.textContent = `${line}\n${log.textContent}`.split('\n').slice(0, 12).join('\n');
+      });
+    </script>
+  </body>
+</html>

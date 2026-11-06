@@ -1,0 +1,12 @@
+# build output
+dist/
+*.zip
+
+# dependencies
+node_modules/
+
+# local noise
+*.log
+*.part
+.DS_Store
+Thumbs.db

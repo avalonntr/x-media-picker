@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>X Media Picker</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <strong>下载列表</strong>
+        <span id="count" class="count">0</span>
+      </div>
+      <button id="clear" class="ghost" title="清空列表">清空</button>
+    </header>
+
+    <p id="health" class="health">检测中…</p>
+
+    <p class="hint">按住 <kbd>Alt</kbd> 点击图片 / 视频：<em>加入或移出</em>。不按 Alt 时页面行为完全不变。</p>
+
+    <ul id="list" class="list"></ul>
+    <p id="empty" class="empty">列表是空的。去 X 上 Alt+点几个媒体试试。</p>
+
+    <footer>
+      <button id="download" class="primary">下载全部</button>
+      <button id="copy" class="ghost">复制链接</button>
+      <button id="export" class="ghost">导出 .txt</button>
+    </footer>
+
+    <p id="status" class="status"></p>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
