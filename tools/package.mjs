@@ -21,7 +21,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = join(root, 'dist');
 
 const SKIP_DIRS = new Set(['dist', 'tools', 'test', 'node_modules', '.git']);
-const SKIP_FILES = new Set(['.DS_Store']);
+const SKIP_FILES = new Set(['.DS_Store', '.gitignore', '.gitattributes']);
 
 // Fixed timestamp keeps the archive byte-stable across builds.
 const DOS_TIME = (12 << 11) | (0 << 5) | 0; // 12:00:00
